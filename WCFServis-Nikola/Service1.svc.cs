@@ -10,24 +10,39 @@ namespace MesterMeind
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public class Service1 : IService1
+    public class Service : IService
     {
-        public string GetData(int value)
+        public Igra Nova()
         {
-            return string.Format("You entered: {0}", value);
+            Random r = new Random();
+            return new Igra(r.Next(1296));
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public Pogodak Proba(Komb k, Igra i, out bool res)
         {
-            if (composite == null)
+            bool t = false;
+            Pogodak p = i.Provera(k, t);
+            res = t;
+            if (t) i.Zavrsi();
+            return p;
+        }
+
+        public Komb Kraj(Igra i)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Uspeh Jeee(Igra i, string ine)
+        {
+            if (i.Reseno)
             {
-                throw new ArgumentNullException("composite");
+                Uspeh u = i.Skor();
+                Baza.Dodaj(u);
+                return u;
             }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            return new Uspeh(TimeSpan.Zero, -1);
+
         }
     }
+
 }
