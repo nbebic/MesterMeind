@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
-namespace MesterMeind
+namespace MasterMind
 {
     [ServiceContract]
     public interface IService
@@ -23,6 +25,18 @@ namespace MesterMeind
 
         [OperationContract]
         Uspeh Jeee(Igra i, string ime);
+
+        [FaultContract(typeof(SqlError))]
+        [OperationContract]
+        DataSet DonesiSve();
+
+        [FaultContract(typeof(SqlError))]
+        [OperationContract]
+        DataSet DonesiVreme();
+
+        [FaultContract(typeof(SqlError))]
+        [OperationContract]
+        DataSet DonesiPokusaji();
     }
 
     [DataContract]
@@ -168,12 +182,12 @@ namespace MesterMeind
     [DataContract]
     public struct Uspeh 
     {
-        public readonly float Vreme;
+        public readonly int Vreme;
         public readonly int Pokusaji;
 
         public Uspeh(TimeSpan t, int p)
         {
-            Vreme = (float)t.TotalSeconds;
+            Vreme = (int)t.TotalSeconds*100;
             Pokusaji = p;
         }
     }
