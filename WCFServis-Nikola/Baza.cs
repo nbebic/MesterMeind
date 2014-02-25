@@ -9,8 +9,13 @@ namespace MasterMind
 {
     class Baza
     {
-        private const string DBCStr = "Data Source=(LocalDB)/v11.0;AttachDbFilename='C:/Users/Master/Documents/Visual Studio 2012/Projects/MesterMeind/MesterMeind/WCFServis-Nikola/App_Data/Mastermind.mdf';Integrated Security=True";
+        private static const string DBCStr = "Data Source=(LocalDB)/v11.0;AttachDbFilename='C:/Users/Master/Documents/Visual Studio 2012/Projects/MesterMeind/MesterMeind/WCFServis-Nikola/App_Data/Mastermind.mdf';Integrated Security=True";
         
+        /// <summary>
+        /// Dodaje prosledjeni uspeh u bazu
+        /// </summary>
+        /// <param name="u">Uspeh iz kog treba procitati podatke</param>
+        /// <param name="ime">Ime takmicara</param>
         internal static void Dodaj(Uspeh u, string ime)
         {
             ime = ime.Replace("'", "");
@@ -23,6 +28,10 @@ namespace MasterMind
             }
         }
 
+        /// <summary>
+        /// Cita sve upisane rezultate u bazi
+        /// </summary>
+        /// <returns>Rezultat pretrage</returns>
         internal static DataSet DonesiSve()
         {
             DataSet d = new DataSet();
@@ -39,6 +48,10 @@ namespace MasterMind
             return d;
         }
 
+        /// <summary>
+        /// Cita najboljih 10 rezultata sortiranih po vremenu
+        /// </summary>
+        /// <returns>Rezultat pretrage</returns>
         internal static DataSet DonesiVreme()
         {
             DataSet d = new DataSet();
@@ -55,6 +68,10 @@ namespace MasterMind
             return d;
         }
 
+        /// <summary>
+        /// Cita najboljih 10 rezultata sortiranih po broju pokusaja
+        /// </summary>
+        /// <returns>Rezultat pretrage</returns>
         internal static DataSet DonesiPokusaji()
         {
             DataSet d = new DataSet();
